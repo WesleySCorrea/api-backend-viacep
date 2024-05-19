@@ -14,7 +14,7 @@ import java.util.List;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-@Table(name = "user")
+@Table(name = "users")
 @JsonInclude(JsonInclude.Include.NON_EMPTY)
 public class Users {
 

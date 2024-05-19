@@ -1,0 +1,17 @@
+version: '3.8'
+
+services:
+  postgres_db:
+    image: postgres
+    container_name: project-viacep
+    environment:
+      POSTGRES_DB: viacep-database
+      POSTGRES_USER: viacep-user
+      POSTGRES_PASSWORD: 1234567
+    ports:
+      - "5432:5432"
+    networks:
+      - viacep_network
+
+networks:
+  viacep_network:
