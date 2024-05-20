@@ -36,8 +36,7 @@ public class UserServiceImpl implements UserService {
         var user = userRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("User with id " + id + " not found"));
 
-        UserResponseDTO userResponse = new UserResponseDTO(user);
-        return userResponse;
+        return new UserResponseDTO(user);
     }
 
     @Override

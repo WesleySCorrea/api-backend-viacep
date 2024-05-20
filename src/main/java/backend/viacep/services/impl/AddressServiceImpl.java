@@ -1,5 +1,9 @@
 package backend.viacep.services.impl;
 
+import backend.viacep.components.HttpRequest;
+import backend.viacep.dtos.AddressDTO;
+import backend.viacep.dtos.request.AddressRequestDTO;
+import backend.viacep.dtos.response.AddressResponseDTO;
 import backend.viacep.entities.Address;
 import backend.viacep.repositories.AddressRepository;
 import backend.viacep.services.AddressService;
@@ -12,31 +16,33 @@ import java.util.List;
 @AllArgsConstructor
 public class AddressServiceImpl implements AddressService {
 
+    private final HttpRequest request;
     private final AddressRepository addressRepository;
 
     @Override
-    public List<Address> findAll() {
+    public List<AddressResponseDTO> findAll() {
 
         List<Address> addresses = addressRepository.findAll();
 
-        return addresses;
+        return addresses.stream().map(AddressResponseDTO::new).toList();
     }
 
     @Override
-    public Address findById(Long id) {
+    public AddressResponseDTO findById(Long id) {
 
-        var address = addressRepository.findById(id)
+        Address address = addressRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("Address with id " + id + " not found"));
 
-        return address;
+        return new AddressResponseDTO(address);
     }
 
     @Override
-    public Address save(Address address) {
+    public AddressResponseDTO save(AddressRequestDTO addressRequest) {
 
-        Address newAddress = addressRepository.save(address);
+        AddressDTO address = request.getCepInfo(addressRequest.getCep());
+        Address newAddress = addressRepository.save(address.converterToAddress(address, addressRequest.getUserId()));
 
-        return newAddress;
+        return new AddressResponseDTO(newAddress);
     }
 
     @Override

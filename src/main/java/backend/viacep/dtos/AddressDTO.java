@@ -38,6 +38,24 @@ public class AddressDTO {
         address.setUser(user);
         return address;
     }
+
+    public Address converterToAddress(AddressDTO addressDTO, Long userId) {
+        Address address = new Address();
+        address.setCep(addressDTO.getCep());
+        address.setLogradouro(addressDTO.getLogradouro());
+        address.setComplemento(addressDTO.getComplemento());
+        address.setBairro(addressDTO.getBairro());
+        address.setLocalidade(addressDTO.getLocalidade());
+        address.setUf(addressDTO.getUf());
+        address.setIbge(addressDTO.getIbge());
+        address.setGia(addressDTO.getGia());
+        address.setDdd(addressDTO.getDdd());
+        address.setSiafi(addressDTO.getSiafi());
+        Users user = new Users();
+        user.setId(userId);
+        address.setUser(user);
+        return address;
+    }
     public AddressDTO(Address address) {
         this.cep = address.getCep();
         this.logradouro = address.getLogradouro();
