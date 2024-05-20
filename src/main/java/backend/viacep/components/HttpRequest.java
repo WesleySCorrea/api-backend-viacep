@@ -1,6 +1,6 @@
 package backend.viacep.components;
 
-import backend.viacep.entities.Address;
+import backend.viacep.dtos.AddressDTO;
 import org.springframework.stereotype.Component;
 import org.springframework.web.reactive.function.client.WebClient;
 import reactor.core.publisher.Mono;
@@ -8,13 +8,13 @@ import reactor.core.publisher.Mono;
 @Component
 public class HttpRequest {
 
-    public Mono<Address> getCepInfo(String cep) {
+    public AddressDTO getCepInfo(String cep) {
 
         WebClient webClient = WebClient.create("https://viacep.com.br");
 
         return webClient.get()
                 .uri("/ws/{cep}/json/", cep)
                 .retrieve()
-                .bodyToMono(Address.class);
+                .bodyToMono(AddressDTO.class).block();
     }
 }

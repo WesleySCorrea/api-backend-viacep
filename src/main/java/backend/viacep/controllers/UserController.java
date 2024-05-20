@@ -1,5 +1,7 @@
 package backend.viacep.controllers;
 
+import backend.viacep.dtos.request.UserRequestDTO;
+import backend.viacep.dtos.response.UserResponseDTO;
 import backend.viacep.entities.Users;
 import backend.viacep.services.UserService;
 import lombok.AllArgsConstructor;
@@ -17,25 +19,25 @@ public class UserController {
     private final UserService userService;
 
     @GetMapping
-    public ResponseEntity<List<Users>> findAll() {
+    public ResponseEntity<List<UserResponseDTO>> findAll() {
 
-        List<Users> users = userService.findAll();
+        List<UserResponseDTO> users = userService.findAll();
 
         return ResponseEntity.ok().body(users);
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<Users> findById(@PathVariable Long id) {
+    public ResponseEntity<UserResponseDTO> findById(@PathVariable Long id) {
 
-        Users user = userService.findById(id);
+        UserResponseDTO user = userService.findById(id);
 
         return ResponseEntity.ok().body(user);
     }
 
     @PostMapping
-    public ResponseEntity<Users> save(@RequestBody Users users) {
+    public ResponseEntity<UserResponseDTO> save(@RequestBody UserRequestDTO users) {
 
-        Users newUser = userService.save(users);
+        UserResponseDTO newUser = userService.save(users);
 
         return ResponseEntity.status(HttpStatus.CREATED).body(newUser);
     }

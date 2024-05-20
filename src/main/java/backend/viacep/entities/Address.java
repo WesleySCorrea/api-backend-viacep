@@ -39,4 +39,7 @@ public class Address {
     private String ddd;
     @Column(name = "siafi")
     private String siafi;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "user_id")
+    private Users user;
 }
