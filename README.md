@@ -1,3 +1,50 @@
+# API Backend ViaCEP
+
+Este projeto é uma API backend para salvar usuarios com seus endereços utilizando a API do ViaCEP.
+
+## Instruções de Uso
+
+Para utilizar este projeto localmente, siga as instruções abaixo.
+
+### Pré-requisitos
+
+- Java 17 ou superior
+- Maven
+- Git
+
+### Instalação
+
+1. Clone o repositório:
+
+    ```bash
+    git clone https://github.com/WesleySCorrea/api-backend-viacep.git
+    ```
+
+2. Navegue até o diretório do projeto:
+
+    ```bash
+    cd backend-viacep
+    ```
+
+3. Compile o projeto:
+
+    ```bash
+    mvn clean install
+    ```
+
+### Configuração
+
+1. Configure as variáveis de ambiente necessárias no arquivo `.env`.
+
+2. Outras instruções de configuração, se aplicável.
+
+### Execução
+
+Execute o projeto:
+
+```bash
+java -jar target/viacep-0.0.1-SNAPSHOT.jar
+
 ```mermaid
 classDiagram
     class UserController {
