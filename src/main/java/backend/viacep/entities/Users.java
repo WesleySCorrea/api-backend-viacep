@@ -27,7 +27,6 @@ public class Users {
     private String lastName;
     @Column(name = "email")
     private String email;
-
     @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
     @JoinColumn(name = "user_id")
     private List<Address> address;
