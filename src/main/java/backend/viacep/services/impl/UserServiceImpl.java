@@ -7,6 +7,7 @@ import backend.viacep.dtos.response.UserResponseDTO;
 import backend.viacep.entities.Address;
 import backend.viacep.entities.Users;
 import backend.viacep.exceptions.runtime.ObjectNotFoundException;
+import backend.viacep.exceptions.runtime.PersistFailedException;
 import backend.viacep.repositories.AddressRepository;
 import backend.viacep.repositories.UserRepository;
 import backend.viacep.services.UserService;
@@ -44,12 +45,22 @@ public class UserServiceImpl implements UserService {
     public UserResponseDTO save(UserRequestDTO userDTO) {
 
         Users user = userDTO.converterToUser(userDTO);
-        Users newUser = userRepository.save(user);
+        Users newUser;
+        try {
+            newUser = userRepository.save(user);
+        } catch (Exception e) {
+            throw new PersistFailedException("Fail when the object was persisted");        }
 
         if (userDTO.getCeps() != null) {
             for (String cep : userDTO.getCeps()) {
                 AddressDTO address = request.getCepInfo(cep);
-                Address newAddress = addressRepository.save(address.converterToAddress(address, newUser));
+
+                Address newAddress;
+                try {
+                newAddress = addressRepository.save(address.converterToAddress(address, newUser));
+                } catch (Exception e) {
+                    throw new PersistFailedException("Fail when the object was persisted");
+                }
                 newUser.getAddress().add(newAddress);
             }
         }

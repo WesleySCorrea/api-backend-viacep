@@ -6,6 +6,7 @@ import backend.viacep.dtos.request.AddressRequestDTO;
 import backend.viacep.dtos.response.AddressResponseDTO;
 import backend.viacep.entities.Address;
 import backend.viacep.exceptions.runtime.ObjectNotFoundException;
+import backend.viacep.exceptions.runtime.PersistFailedException;
 import backend.viacep.repositories.AddressRepository;
 import backend.viacep.services.AddressService;
 import lombok.AllArgsConstructor;
@@ -41,7 +42,13 @@ public class AddressServiceImpl implements AddressService {
     public AddressResponseDTO save(AddressRequestDTO addressRequest) {
 
         AddressDTO address = request.getCepInfo(addressRequest.getCep());
-        Address newAddress = addressRepository.save(address.converterToAddress(address, addressRequest.getUserId()));
+
+        Address newAddress;
+        try {
+            newAddress = addressRepository.save(address.converterToAddress(address, addressRequest.getUserId()));
+        } catch (Exception e) {
+            throw new PersistFailedException("Fail when the object was persisted");
+        }
 
         return new AddressResponseDTO(newAddress);
     }

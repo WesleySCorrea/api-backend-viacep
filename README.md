@@ -1,6 +1,6 @@
 # API Backend ViaCEP
 
-Este projeto é uma API backend para salvar usuarios com seus endereços utilizando a API do ViaCEP.
+Este projeto é uma API backend para salvar usuarios com os seus endereços utilizando a API do ViaCEP.
 
 ## Instruções de Uso
 
