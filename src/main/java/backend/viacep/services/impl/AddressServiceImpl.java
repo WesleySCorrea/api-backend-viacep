@@ -5,6 +5,7 @@ import backend.viacep.dtos.AddressDTO;
 import backend.viacep.dtos.request.AddressRequestDTO;
 import backend.viacep.dtos.response.AddressResponseDTO;
 import backend.viacep.entities.Address;
+import backend.viacep.exceptions.runtime.ObjectNotFoundException;
 import backend.viacep.repositories.AddressRepository;
 import backend.viacep.services.AddressService;
 import lombok.AllArgsConstructor;
@@ -31,7 +32,7 @@ public class AddressServiceImpl implements AddressService {
     public AddressResponseDTO findById(Long id) {
 
         Address address = addressRepository.findById(id)
-                .orElseThrow(() -> new RuntimeException("Address with id " + id + " not found"));
+                .orElseThrow(() -> new ObjectNotFoundException("Address with id " + id + " not found"));
 
         return new AddressResponseDTO(address);
     }
@@ -49,7 +50,7 @@ public class AddressServiceImpl implements AddressService {
     public void deleteById(Long id) {
 
         var address = addressRepository.findById(id)
-                .orElseThrow(() -> new RuntimeException("Address with id " + id + " not found"));
+                .orElseThrow(() -> new ObjectNotFoundException("Address with id " + id + " not found"));
 
         addressRepository.delete(address);
     }
