@@ -1,6 +1,23 @@
 version: '3.8'
 
 services:
+  viacep_backend:
+    image: wesleyscorrea/viacep_backend:0.1
+    container_name: viacep-backend
+    environment:
+      PROFILE_ACTIVE: test
+      SERVER_PORT: 8090
+      SERVLET_CONTEXT_PATH: /api
+      DATASOURCE_URL: jdbc:postgresql://postgres_db:5432/viacep-database
+      DATASOURCE_USERNAME: viacep-user
+      DATASOURCE_PASSWORD: 1234567
+    ports:
+      - "8090:8090"
+    networks:
+      - viacep_network
+    depends_on:
+      - postgres_db
+
   postgres_db:
     image: postgres
     container_name: project-viacep
